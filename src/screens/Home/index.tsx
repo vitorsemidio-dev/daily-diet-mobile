@@ -1,9 +1,17 @@
-import { Container, Text } from './styles';
+import logoImg from '@assets/logo.png';
+import { Container, Header, Logo, ProfileImage } from './styles';
 
 export function Home() {
   return (
     <Container>
-      <Text>Home Daily Diet | With Styled Components</Text>
+      <Header>
+        <Logo source={logoImg} />
+        <ProfileImage
+          source={{
+            uri: 'https://github.com/vitorsemidio-dev.png',
+          }}
+        />
+      </Header>
     </Container>
   );
 }
