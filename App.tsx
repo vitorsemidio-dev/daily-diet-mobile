@@ -1,9 +1,20 @@
+import { Loading } from '@components/Loading';
+import {
+  Nunito_400Regular,
+  Nunito_700Bold,
+  useFonts,
+} from '@expo-google-fonts/nunito';
 import { Home } from '@screens/Home';
-import { StatusBar, StyleSheet, View } from 'react-native';
 import theme from '@theme/index';
+import { StatusBar, StyleSheet, View } from 'react-native';
 import { ThemeProvider } from 'styled-components/native';
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    Nunito_400Regular,
+    Nunito_700Bold,
+  });
+
   return (
     <ThemeProvider theme={theme}>
       <View style={styles.container}>
@@ -12,7 +23,7 @@ export default function App() {
           backgroundColor="transparent"
           translucent
         />
-        <Home />
+        {fontsLoaded ? <Home /> : <Loading />}
       </View>
     </ThemeProvider>
   );

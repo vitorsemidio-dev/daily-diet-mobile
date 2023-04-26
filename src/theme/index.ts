@@ -15,6 +15,10 @@ export default {
     BRAND_RED_MID: '#F3BABD',
     BRAND_RED_LIGHT: '#F4E6E7',
   },
+  FONT_FAMILY: {
+    REGULAR: 'Nunito_400Regular',
+    BOLD: 'Nunito_700Bold',
+  },
   FONT_SIZE: {
     TITLE_G: 32,
     TITLE_M: 24,
