@@ -1,5 +1,13 @@
 import logoImg from '@assets/logo.png';
-import { Container, Header, Logo, ProfileImage } from './styles';
+import {
+  Banner,
+  Container,
+  Header,
+  Logo,
+  ProfileImage,
+  Text,
+  Title,
+} from './styles';
 
 export function Home() {
   return (
@@ -12,6 +20,11 @@ export function Home() {
           }}
         />
       </Header>
+
+      <Banner variant="success">
+        <Title size="lg">90,86%</Title>
+        <Text>das refeições dentro da dieta</Text>
+      </Banner>
     </Container>
   );
 }
