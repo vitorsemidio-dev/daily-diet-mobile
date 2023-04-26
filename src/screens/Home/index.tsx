@@ -1,8 +1,16 @@
 import logoImg from '@assets/logo.png';
+import { MaterialIcons } from '@expo/vector-icons';
+import { useTheme } from 'styled-components';
 import {
   Banner,
   Button,
+  Circle,
   Container,
+  DayMealContainer,
+  DayMealGroupList,
+  DayMealItem,
+  DayMealList,
+  Divider,
   Header,
   Logo,
   MealsContainer,
@@ -10,7 +18,6 @@ import {
   Text,
   Title,
 } from './styles';
-import { useTheme } from 'styled-components';
 
 export function Home() {
   const theme = useTheme();
@@ -34,8 +41,59 @@ export function Home() {
         <Text>Refeições</Text>
 
         <Button>
+          <MaterialIcons name="add" color={theme.COLORS.BASE_WHITE} size={24} />
           <Text style={{ color: theme.COLORS.BASE_WHITE }}>Nova Refeição</Text>
         </Button>
+
+        <DayMealContainer>
+          <DayMealGroupList>
+            <Title size="sm">12.08.22</Title>
+            <DayMealList>
+              <DayMealItem>
+                <Title size="sm">20:00</Title>
+                <Divider />
+                <Text style={{ flex: 1 }}>X-Tudo</Text>
+                <Circle type="danger" />
+              </DayMealItem>
+              <DayMealItem>
+                <Title size="sm">16:00</Title>
+                <Divider />
+                <Text style={{ flex: 1 }}>Whey protein com leite</Text>
+                <Circle type="success" />
+              </DayMealItem>
+              <DayMealItem>
+                <Title size="sm">12:00</Title>
+                <Divider />
+                <Text style={{ flex: 1 }}>Salada César</Text>
+                <Circle type="success" />
+              </DayMealItem>
+            </DayMealList>
+          </DayMealGroupList>
+
+          <DayMealGroupList>
+            <Title size="sm">12.08.22</Title>
+            <DayMealList>
+              <DayMealItem>
+                <Title size="sm">20:00</Title>
+                <Divider />
+                <Text style={{ flex: 1 }}>X-Tudo</Text>
+                <Circle type="danger" />
+              </DayMealItem>
+              <DayMealItem>
+                <Title size="sm">16:00</Title>
+                <Divider />
+                <Text style={{ flex: 1 }}>Whey protein com leite</Text>
+                <Circle type="success" />
+              </DayMealItem>
+              <DayMealItem>
+                <Title size="sm">12:00</Title>
+                <Divider />
+                <Text style={{ flex: 1 }}>Salada César</Text>
+                <Circle type="success" />
+              </DayMealItem>
+            </DayMealList>
+          </DayMealGroupList>
+        </DayMealContainer>
       </MealsContainer>
     </Container>
   );
