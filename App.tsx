@@ -4,7 +4,7 @@ import {
   Nunito_700Bold,
   useFonts,
 } from '@expo-google-fonts/nunito';
-import { Home } from '@screens/Home';
+import { Routes } from '@routes/index';
 import theme from '@theme/index';
 import { StatusBar, StyleSheet, View } from 'react-native';
 import { ThemeProvider } from 'styled-components/native';
@@ -23,7 +23,7 @@ export default function App() {
           backgroundColor="transparent"
           translucent
         />
-        {fontsLoaded ? <Home /> : <Loading />}
+        {fontsLoaded ? <Routes /> : <Loading />}
       </View>
     </ThemeProvider>
   );
