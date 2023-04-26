@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { TouchableOpacity } from 'react-native';
 
 export const Container = styled.View`
   flex: 1;
@@ -85,4 +86,17 @@ export const Title = styled.Text<TitleGProps>`
   }}px;
   font-family: ${({ theme }) => theme.FONT_FAMILY.BOLD};
   color: ${({ theme }) => theme.COLORS.BASE_GRAY_200};
+`;
+
+export const MealsContainer = styled.View`
+  margin-top: 40px;
+`;
+
+export const Button = styled(TouchableOpacity)`
+  margin-top: 8px;
+  padding: 16px 24px;
+  background-color: ${({ theme }) => theme.COLORS.BASE_GRAY_200};
+  border-radius: 6px;
+  align-items: center;
+  gap: 4px;
 `;
