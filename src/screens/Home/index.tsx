@@ -1,8 +1,10 @@
 import logoImg from '@assets/logo.png';
-import { MaterialIcons } from '@expo/vector-icons';
+import { Banner } from '@components/Banner';
+import { Text, Title } from '@components/Typography';
+import { Feather } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'styled-components';
 import {
-  Banner,
   Button,
   Circle,
   Container,
@@ -15,12 +17,16 @@ import {
   Logo,
   MealsContainer,
   ProfileImage,
-  Text,
-  Title,
 } from './styles';
 
 export function Home() {
   const theme = useTheme();
+  const navigate = useNavigation();
+
+  function handleNavigateToMetrics() {
+    navigate.navigate('metrics');
+  }
+
   return (
     <Container>
       <Header>
@@ -32,7 +38,14 @@ export function Home() {
         />
       </Header>
 
-      <Banner variant="success">
+      <Banner variant="success" style={{ marginTop: 32 }}>
+        <Feather
+          name="arrow-up-right"
+          color={theme.COLORS.BRAND_GREEN_DARK}
+          size={24}
+          style={{ position: 'absolute', top: 8, right: 8 }}
+          onPress={handleNavigateToMetrics}
+        />
         <Title size="lg">90,86%</Title>
         <Text>das refeições dentro da dieta</Text>
       </Banner>
@@ -41,7 +54,7 @@ export function Home() {
         <Text>Refeições</Text>
 
         <Button>
-          <MaterialIcons name="add" color={theme.COLORS.BASE_WHITE} size={24} />
+          <Feather name="plus" color={theme.COLORS.BASE_WHITE} size={24} />
           <Text style={{ color: theme.COLORS.BASE_WHITE }}>Nova Refeição</Text>
         </Button>
 
