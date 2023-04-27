@@ -4,6 +4,7 @@ import { Text, Title } from '@components/Typography';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'styled-components';
+import { FlatList } from 'react-native';
 import {
   Button,
   Circle,
@@ -18,6 +19,78 @@ import {
   MealsContainer,
   ProfileImage,
 } from './styles';
+
+type Meal = {
+  id: number;
+  name: string;
+  time: string;
+  type: 'success' | 'danger';
+};
+
+type MealsGroupedByDay = {
+  date: string;
+  meals: Array<Meal>;
+};
+
+const mealsGroupedByDay: MealsGroupedByDay[] = [
+  {
+    date: '12.08.22',
+    meals: [
+      {
+        id: 1,
+        name: 'X-Tudo',
+        time: '20:00',
+        type: 'danger',
+      },
+      {
+        id: 2,
+        name: 'Whey protein com leite',
+        time: '16:00',
+        type: 'success',
+      },
+      {
+        id: 3,
+        name: 'Salada César',
+        time: '12:00',
+        type: 'success',
+      },
+    ],
+  },
+  {
+    date: '12.08.21',
+    meals: [
+      {
+        id: 1,
+        name: 'Salada',
+        time: '17:00',
+        type: 'success',
+      },
+      {
+        id: 2,
+        name: 'Whey protein com leite',
+        time: '16:00',
+        type: 'success',
+      },
+    ],
+  },
+  {
+    date: '12.08.20',
+    meals: [
+      {
+        id: 1,
+        name: 'Tapioca',
+        time: '16:00',
+        type: 'danger',
+      },
+      {
+        id: 2,
+        name: 'Whey protein com leite',
+        time: '12:00',
+        type: 'success',
+      },
+    ],
+  },
+];
 
 export function Home() {
   const theme = useTheme();
@@ -59,53 +132,26 @@ export function Home() {
         </Button>
 
         <DayMealContainer>
-          <DayMealGroupList>
-            <Title size="sm">12.08.22</Title>
-            <DayMealList>
-              <DayMealItem>
-                <Title size="sm">20:00</Title>
-                <Divider />
-                <Text style={{ flex: 1 }}>X-Tudo</Text>
-                <Circle type="danger" />
-              </DayMealItem>
-              <DayMealItem>
-                <Title size="sm">16:00</Title>
-                <Divider />
-                <Text style={{ flex: 1 }}>Whey protein com leite</Text>
-                <Circle type="success" />
-              </DayMealItem>
-              <DayMealItem>
-                <Title size="sm">12:00</Title>
-                <Divider />
-                <Text style={{ flex: 1 }}>Salada César</Text>
-                <Circle type="success" />
-              </DayMealItem>
-            </DayMealList>
-          </DayMealGroupList>
-
-          <DayMealGroupList>
-            <Title size="sm">12.08.22</Title>
-            <DayMealList>
-              <DayMealItem>
-                <Title size="sm">20:00</Title>
-                <Divider />
-                <Text style={{ flex: 1 }}>X-Tudo</Text>
-                <Circle type="danger" />
-              </DayMealItem>
-              <DayMealItem>
-                <Title size="sm">16:00</Title>
-                <Divider />
-                <Text style={{ flex: 1 }}>Whey protein com leite</Text>
-                <Circle type="success" />
-              </DayMealItem>
-              <DayMealItem>
-                <Title size="sm">12:00</Title>
-                <Divider />
-                <Text style={{ flex: 1 }}>Salada César</Text>
-                <Circle type="success" />
-              </DayMealItem>
-            </DayMealList>
-          </DayMealGroupList>
+          <FlatList
+            data={mealsGroupedByDay}
+            keyExtractor={(item) => item.date}
+            contentContainerStyle={{ paddingBottom: 80 }}
+            renderItem={({ item }) => (
+              <DayMealGroupList>
+                <Title size="sm">{item.date}</Title>
+                <DayMealList>
+                  {item.meals.map((meal) => (
+                    <DayMealItem key={meal.id}>
+                      <Title size="sm">{meal.time}</Title>
+                      <Divider />
+                      <Text style={{ flex: 1 }}>{meal.name}</Text>
+                      <Circle type={meal.type} />
+                    </DayMealItem>
+                  ))}
+                </DayMealList>
+              </DayMealGroupList>
+            )}
+          />
         </DayMealContainer>
       </MealsContainer>
     </Container>

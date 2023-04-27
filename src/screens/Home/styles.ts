@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import { TouchableOpacity } from 'react-native';
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
   flex: 1;
   background-color: ${({ theme }) => theme.COLORS.BASE_GRAY_700};
   padding: 24px;
@@ -50,6 +50,7 @@ export const DayMealContainer = styled.View`
 
 export const DayMealGroupList = styled.View`
   gap: 8px;
+  margin-bottom: 32px;
 `;
 
 export const DayMealList = styled.View`

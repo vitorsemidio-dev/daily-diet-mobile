@@ -1,14 +1,14 @@
+import { Banner } from '@components/Banner';
 import { Text, Title } from '@components/Typography';
 import { Feather } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { useTheme } from 'styled-components';
 import {
   Container,
   DataMetricsContainer,
   InfoContainer,
   MetricsContainer,
 } from './styles';
-import { useTheme } from 'styled-components';
-import { useNavigation } from '@react-navigation/native';
-import { Banner } from '@components/Banner';
 
 export function Metrics() {
   const theme = useTheme();
