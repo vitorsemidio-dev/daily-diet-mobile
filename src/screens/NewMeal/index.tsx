@@ -1,15 +1,16 @@
+import { Button } from '@components/Button';
+import { HeaderScreen } from '@components/HeaderScreen';
+import { Input } from '@components/Input';
+import { RadioButtonInput } from '@components/RadioButtonInput';
 import { Text, Title } from '@components/Typography';
+import { useState } from 'react';
+import { useTheme } from 'styled-components';
 import {
   Container,
   FormContainer,
   InputRadioWrapper,
   InputWrapper,
 } from './styles';
-import { HeaderScreen } from '@components/HeaderScreen';
-import { Input } from '@components/Input';
-import { Button } from '@components/Button';
-import { useTheme } from 'styled-components';
-import { useState } from 'react';
 
 export function NewMeal() {
   const theme = useTheme();
@@ -56,11 +57,14 @@ export function NewMeal() {
         </InputRadioWrapper>
 
         <InputWrapper>
-          <Title size="sm">Está dentro da Dieta?</Title>
-          <InputRadioWrapper>
-            <Input />
-            <Input />
-          </InputRadioWrapper>
+          <RadioButtonInput
+            label="Está dentro da Dieta?"
+            options={[
+              { labelText: 'Sim', value: true },
+              { labelText: 'Não', value: false },
+            ]}
+            onChange={(value) => setIsInDiet(value)}
+          />
         </InputWrapper>
 
         <Button onPress={handleNewMeal}>
