@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Home } from '@screens/Home';
 import { Metrics } from '@screens/Metrics';
+import { NewMeal } from '@screens/NewMeal';
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
@@ -14,6 +15,7 @@ export function AppRoutes() {
     >
       <Screen name="home" component={Home} />
       <Screen name="metrics" component={Metrics} />
+      <Screen name="newMeal" component={NewMeal} />
     </Navigator>
   );
 }

@@ -100,6 +100,10 @@ export function Home() {
     navigate.navigate('metrics');
   }
 
+  function handleNavigateToNewMeal() {
+    navigate.navigate('newMeal');
+  }
+
   return (
     <Container>
       <Header>
@@ -126,7 +130,7 @@ export function Home() {
       <MealsContainer>
         <Text>Refeições</Text>
 
-        <Button>
+        <Button onPress={handleNavigateToNewMeal}>
           <Feather name="plus" color={theme.COLORS.BASE_WHITE} size={24} />
           <Text style={{ color: theme.COLORS.BASE_WHITE }}>Nova Refeição</Text>
         </Button>
