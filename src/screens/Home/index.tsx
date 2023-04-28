@@ -130,7 +130,7 @@ export function Home() {
       <MealsContainer>
         <Text>Refeições</Text>
 
-        <Button onPress={handleNavigateToNewMeal}>
+        <Button activeOpacity={0.85} onPress={handleNavigateToNewMeal}>
           <Feather name="plus" color={theme.COLORS.BASE_WHITE} size={24} />
           <Text style={{ color: theme.COLORS.BASE_WHITE }}>Nova Refeição</Text>
         </Button>

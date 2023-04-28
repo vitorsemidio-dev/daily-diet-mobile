@@ -3,6 +3,7 @@ import { HeaderScreen } from '@components/HeaderScreen';
 import { Input } from '@components/Input';
 import { RadioButtonInput } from '@components/RadioButtonInput';
 import { Text, Title } from '@components/Typography';
+import { mealCreate } from '@storage/mealCreate';
 import { useState } from 'react';
 import { useTheme } from 'styled-components';
 import {
@@ -21,8 +22,14 @@ export function NewMeal() {
   const [hour, setHour] = useState('');
   const [isInDiet, setIsInDiet] = useState(false);
 
-  const handleNewMeal = () => {
-    console.log({ name, description, date, hour, isInDiet });
+  const handleNewMeal = async () => {
+    await mealCreate({
+      name,
+      description,
+      date,
+      hour,
+      isInDiet,
+    });
   };
 
   return (
