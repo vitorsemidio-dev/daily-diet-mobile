@@ -3,6 +3,7 @@ import { HeaderScreen } from '@components/HeaderScreen';
 import { Input } from '@components/Input';
 import { RadioButtonInput } from '@components/RadioButtonInput';
 import { Text, Title } from '@components/Typography';
+import { useNavigation } from '@react-navigation/native';
 import { mealCreate } from '@storage/mealCreate';
 import { useState } from 'react';
 import { useTheme } from 'styled-components';
@@ -22,6 +23,14 @@ export function NewMeal() {
   const [hour, setHour] = useState('');
   const [isInDiet, setIsInDiet] = useState(false);
 
+  const navigate = useNavigation();
+
+  const navigateToFeedbackScreen = () => {
+    navigate.navigate('feedbackMeal', {
+      dietType: isInDiet ? 'on' : 'off',
+    });
+  };
+
   const handleNewMeal = async () => {
     await mealCreate({
       name,
@@ -30,6 +39,8 @@ export function NewMeal() {
       hour,
       isInDiet,
     });
+
+    navigateToFeedbackScreen();
   };
 
   return (
