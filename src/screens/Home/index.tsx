@@ -3,8 +3,11 @@ import { Banner } from '@components/Banner';
 import { Text, Title } from '@components/Typography';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { useTheme } from 'styled-components';
+import { mealFetch } from '@storage/mealFetch';
+import { sortBy } from '@utils/sort-by';
+import { useLayoutEffect, useState } from 'react';
 import { FlatList } from 'react-native';
+import { useTheme } from 'styled-components';
 import {
   Button,
   Circle,
@@ -20,6 +23,45 @@ import {
   ProfileImage,
 } from './styles';
 
+type MealFetchResult = {
+  id: number;
+  name: string;
+  description: string;
+  date: string;
+  hour: string;
+  isDiet: boolean;
+};
+
+function groupByDate(meals: MealFetchResult[]) {
+  const mealsMapped = meals.reduce((acc, meal) => {
+    const date = meal.date;
+    const mealGroup = acc.find((group) => group.date === date);
+    if (mealGroup) {
+      mealGroup.meals.push({
+        id: meal.id,
+        name: meal.name,
+        time: meal.hour,
+        type: meal.isDiet ? 'success' : 'danger',
+      });
+    } else {
+      acc.push({
+        date,
+        meals: [
+          {
+            id: meal.id,
+            name: meal.name,
+            time: meal.hour,
+            type: meal.isDiet ? 'success' : 'danger',
+          },
+        ],
+      });
+    }
+    return acc;
+  }, [] as MealsGroupedByDate[]);
+
+  return mealsMapped.sort(sortBy('date', 'desc'));
+}
+
 type Meal = {
   id: number;
   name: string;
@@ -27,74 +69,16 @@ type Meal = {
   type: 'success' | 'danger';
 };
 
-type MealsGroupedByDay = {
+type MealsGroupedByDate = {
   date: string;
   meals: Array<Meal>;
 };
 
-const mealsGroupedByDay: MealsGroupedByDay[] = [
-  {
-    date: '12.08.22',
-    meals: [
-      {
-        id: 1,
-        name: 'X-Tudo',
-        time: '20:00',
-        type: 'danger',
-      },
-      {
-        id: 2,
-        name: 'Whey protein com leite',
-        time: '16:00',
-        type: 'success',
-      },
-      {
-        id: 3,
-        name: 'Salada César',
-        time: '12:00',
-        type: 'success',
-      },
-    ],
-  },
-  {
-    date: '12.08.21',
-    meals: [
-      {
-        id: 1,
-        name: 'Salada',
-        time: '17:00',
-        type: 'success',
-      },
-      {
-        id: 2,
-        name: 'Whey protein com leite',
-        time: '16:00',
-        type: 'success',
-      },
-    ],
-  },
-  {
-    date: '12.08.20',
-    meals: [
-      {
-        id: 1,
-        name: 'Tapioca',
-        time: '16:00',
-        type: 'danger',
-      },
-      {
-        id: 2,
-        name: 'Whey protein com leite',
-        time: '12:00',
-        type: 'success',
-      },
-    ],
-  },
-];
-
 export function Home() {
   const theme = useTheme();
   const navigate = useNavigation();
+  const [meals, setMeals] = useState<MealFetchResult[]>([]);
+  const mealsGroupedByDate = groupByDate(meals);
 
   function handleNavigateToMetrics() {
     navigate.navigate('metrics');
@@ -103,6 +87,12 @@ export function Home() {
   function handleNavigateToNewMeal() {
     navigate.navigate('newMeal');
   }
+
+  useLayoutEffect(() => {
+    mealFetch().then((mealsResponse) => {
+      setMeals(mealsResponse);
+    });
+  }, []);
 
   return (
     <Container>
@@ -137,7 +127,7 @@ export function Home() {
 
         <DayMealContainer>
           <FlatList
-            data={mealsGroupedByDay}
+            data={mealsGroupedByDate}
             keyExtractor={(item) => item.date}
             contentContainerStyle={{ paddingBottom: 80 }}
             renderItem={({ item }) => (

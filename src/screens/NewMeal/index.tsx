@@ -21,13 +21,13 @@ export function NewMeal() {
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
   const [hour, setHour] = useState('');
-  const [isInDiet, setIsInDiet] = useState(false);
+  const [isDiet, setIsDiet] = useState(false);
 
   const navigate = useNavigation();
 
   const navigateToFeedbackScreen = () => {
     navigate.navigate('feedbackMeal', {
-      dietType: isInDiet ? 'on' : 'off',
+      dietType: isDiet ? 'on' : 'off',
     });
   };
 
@@ -37,7 +37,7 @@ export function NewMeal() {
       description,
       date,
       hour,
-      isInDiet,
+      isDiet,
     });
 
     navigateToFeedbackScreen();
@@ -81,7 +81,7 @@ export function NewMeal() {
               { labelText: 'Sim', value: true },
               { labelText: 'Não', value: false },
             ]}
-            onChange={(value) => setIsInDiet(value)}
+            onChange={(value) => setIsDiet(value)}
           />
         </InputWrapper>
 

@@ -1,7 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MEAL_COLLECTION } from './storageConfig';
 
-type MealCreateParams = {
+type MealFetchResult = {
+  id: number;
   name: string;
   description: string;
   date: string;
@@ -9,29 +10,12 @@ type MealCreateParams = {
   isDiet: boolean;
 };
 
-export async function mealCreate({
-  date,
-  description,
-  hour,
-  isDiet,
-  name,
-}: MealCreateParams) {
+export async function mealFetch(): Promise<MealFetchResult[]> {
   try {
     const meals = await AsyncStorage.getItem(MEAL_COLLECTION);
     const parsedMeals = meals ? JSON.parse(meals) : [];
 
-    const newMeal = {
-      id: new Date().getTime(),
-      name,
-      description,
-      date,
-      hour,
-      isDiet,
-    };
-
-    parsedMeals.push(newMeal);
-
-    await AsyncStorage.setItem(MEAL_COLLECTION, JSON.stringify(parsedMeals));
+    return parsedMeals as MealFetchResult[];
   } catch (err) {
     throw err;
   }
