@@ -4,8 +4,10 @@ import { HeaderScreen } from '@components/HeaderScreen';
 import { Text, Title } from '@components/Typography';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { mealDelete } from '@storage/mealDelete';
 import { mealGet } from '@storage/mealGet';
 import { useEffect, useState } from 'react';
+import { Alert } from 'react-native';
 import { useTheme } from 'styled-components';
 import {
   Container,
@@ -65,6 +67,33 @@ export function DetailMeal() {
     navigate.navigate('newMeal', { mealId });
   };
 
+  const deleteMeal = async () => {
+    await mealDelete(mealId);
+    handleGoToHomePage();
+  };
+
+  const handleGoToHomePage = () => {
+    navigate.reset({
+      routes: [{ name: 'home' }],
+      index: 0,
+    });
+  };
+
+  const handleDeleteMeal = () => {
+    Alert.alert('Excluir refeição', 'Deseja excluir essa refeição?', [
+      {
+        text: 'Cancelar',
+        onPress: () => {},
+        style: 'cancel',
+      },
+      {
+        text: 'Excluir',
+        onPress: () => deleteMeal(),
+        style: 'destructive',
+      },
+    ]);
+  };
+
   return (
     <Container>
       <HeaderScreen title="Refeição" />
@@ -94,7 +123,7 @@ export function DetailMeal() {
               Editar refeição
             </Text>
           </Button>
-          <Button type="outline">
+          <Button type="outline" onPress={handleDeleteMeal}>
             <Feather
               name="trash"
               color={theme.COLORS.BASE_GRAY_100}

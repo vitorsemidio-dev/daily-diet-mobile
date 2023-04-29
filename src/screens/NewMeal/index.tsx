@@ -39,7 +39,6 @@ export function NewMeal() {
     if (!params?.mealId) return;
     mealGet(params?.mealId).then((response) => {
       fillMeal(response);
-      console.log('achou meal');
     });
   }, []);
 
