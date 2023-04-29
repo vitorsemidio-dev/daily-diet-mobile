@@ -1,23 +1,10 @@
 import styled from 'styled-components/native';
-import appTheme from '@theme/index';
+import { colors } from '@theme/index';
 
 type CircleProps = {
   type?: 'success' | 'danger';
   intensity?: 'light' | 'mid' | 'dark';
   size?: number;
-};
-
-const colors = {
-  success: {
-    light: appTheme.COLORS.BRAND_GREEN_LIGHT,
-    mid: appTheme.COLORS.BRAND_GREEN_MID,
-    dark: appTheme.COLORS.BRAND_GREEN_DARK,
-  },
-  danger: {
-    light: appTheme.COLORS.BRAND_RED_LIGHT,
-    mid: appTheme.COLORS.BRAND_RED_MID,
-    dark: appTheme.COLORS.BRAND_RED_DARK,
-  },
 };
 
 export const Circle = styled.View<CircleProps>`

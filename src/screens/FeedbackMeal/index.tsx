@@ -6,7 +6,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { useTheme } from 'styled-components';
 import { Container, FeedbackIllustration } from './styles';
 
-type RouteParams = {
+export type FeedbackRouteParams = {
   dietType: 'on' | 'off';
 };
 
@@ -101,7 +101,7 @@ function FeedbackDietOffMeal() {
 
 export function FeedbackMeal() {
   const route = useRoute();
-  const { dietType } = route.params as RouteParams;
+  const { dietType } = route.params as FeedbackRouteParams;
   const isDiet = dietType === 'on';
   return (
     <Container>

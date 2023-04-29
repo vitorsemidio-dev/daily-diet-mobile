@@ -1,16 +1,17 @@
 import logoImg from '@assets/logo.png';
 import { Banner } from '@components/Banner';
+import { Button } from '@components/Button';
+import { Circle } from '@components/Circle';
 import { Text, Title } from '@components/Typography';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { mealFetch } from '@storage/mealFetch';
+import { Meal } from '@storage/types';
 import { sortBy } from '@utils/sort-by';
 import { useLayoutEffect, useState } from 'react';
 import { FlatList } from 'react-native';
 import { useTheme } from 'styled-components';
 import {
-  Button,
-  Circle,
   Container,
   DayMealContainer,
   DayMealGroupList,
@@ -23,16 +24,7 @@ import {
   ProfileImage,
 } from './styles';
 
-type MealFetchResult = {
-  id: number;
-  name: string;
-  description: string;
-  date: string;
-  hour: string;
-  isDiet: boolean;
-};
-
-function groupByDate(meals: MealFetchResult[]) {
+function groupByDate(meals: Meal[]) {
   const mealsMapped = meals.reduce((acc, meal) => {
     const date = meal.date;
     const mealGroup = acc.find((group) => group.date === date);
@@ -62,7 +54,7 @@ function groupByDate(meals: MealFetchResult[]) {
   return mealsMapped.sort(sortBy('date', 'desc'));
 }
 
-type Meal = {
+type MealItem = {
   id: number;
   name: string;
   time: string;
@@ -71,13 +63,14 @@ type Meal = {
 
 type MealsGroupedByDate = {
   date: string;
-  meals: Array<Meal>;
+  meals: Array<MealItem>;
 };
 
 export function Home() {
   const theme = useTheme();
   const navigate = useNavigation();
-  const [meals, setMeals] = useState<MealFetchResult[]>([]);
+
+  const [meals, setMeals] = useState<Meal[]>([]);
   const mealsGroupedByDate = groupByDate(meals);
 
   function handleNavigateToMetrics() {
@@ -124,7 +117,7 @@ export function Home() {
       <MealsContainer>
         <Text>Refeições</Text>
 
-        <Button activeOpacity={0.85} onPress={handleNavigateToNewMeal}>
+        <Button onPress={handleNavigateToNewMeal}>
           <Feather name="plus" color={theme.COLORS.BASE_WHITE} size={24} />
           <Text style={{ color: theme.COLORS.BASE_WHITE }}>Nova Refeição</Text>
         </Button>

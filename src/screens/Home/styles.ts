@@ -32,17 +32,6 @@ export const MealsContainer = styled.View`
   margin-top: 40px;
 `;
 
-export const Button = styled(TouchableOpacity)`
-  margin-top: 8px;
-  padding: 16px 24px;
-  background-color: ${({ theme }) => theme.COLORS.BASE_GRAY_200};
-  border-radius: 6px;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-`;
-
 export const DayMealContainer = styled.View`
   margin-top: 40px;
   gap: 40px;
@@ -67,26 +56,6 @@ export const DayMealItem = styled(TouchableOpacity).attrs({
   border-radius: 6px;
   gap: 8px;
   align-items: center;
-`;
-
-type CircleProps = {
-  type?: 'success' | 'danger';
-};
-
-export const Circle = styled.View<CircleProps>`
-  width: 14px;
-  height: 14px;
-  border-radius: 7px;
-  background-color: ${({ theme, type }) => {
-    switch (type) {
-      case 'success':
-        return theme.COLORS.BRAND_GREEN_MID;
-      case 'danger':
-        return theme.COLORS.BRAND_RED_MID;
-      default:
-        return theme.COLORS.BRAND_GREEN_MID;
-    }
-  }};
 `;
 
 export const Divider = styled.View`

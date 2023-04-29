@@ -1,21 +1,14 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { jsonParse } from '@utils/json-parse';
 import { MEAL_COLLECTION } from './storageConfig';
+import { Meal } from './types';
 
-type MealFetchResult = {
-  id: number;
-  name: string;
-  description: string;
-  date: string;
-  hour: string;
-  isDiet: boolean;
-};
-
-export async function mealFetch(): Promise<MealFetchResult[]> {
+export async function mealFetch(): Promise<Meal[]> {
   try {
     const meals = await AsyncStorage.getItem(MEAL_COLLECTION);
-    const parsedMeals = meals ? JSON.parse(meals) : [];
+    const parsedMeals = meals ? jsonParse<Meal[]>(meals) : [];
 
-    return parsedMeals as MealFetchResult[];
+    return parsedMeals;
   } catch (err) {
     throw err;
   }

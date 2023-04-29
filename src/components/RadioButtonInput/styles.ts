@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import appTheme from '@theme/index';
+import { colors } from '@theme/index';
 
 export const Container = styled.View`
   gap: 8px;
@@ -13,19 +13,6 @@ export const ContainerOptions = styled.View`
 type RadioProps = {
   isActive: boolean;
   type?: 'success' | 'danger';
-};
-
-const colors = {
-  success: {
-    light: appTheme.COLORS.BRAND_GREEN_LIGHT,
-    mid: appTheme.COLORS.BRAND_GREEN_MID,
-    dark: appTheme.COLORS.BRAND_GREEN_DARK,
-  },
-  danger: {
-    light: appTheme.COLORS.BRAND_RED_LIGHT,
-    mid: appTheme.COLORS.BRAND_RED_MID,
-    dark: appTheme.COLORS.BRAND_RED_DARK,
-  },
 };
 
 export const Radio = styled.Pressable<RadioProps>`

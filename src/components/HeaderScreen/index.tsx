@@ -10,10 +10,11 @@ interface Props {
 
 export function HeaderScreen({ title }: Props) {
   const theme = useTheme();
+  const navigate = useNavigation();
+
   const bannerHeight = 132;
   const topIconPosition = bannerHeight / 2 - 12;
 
-  const navigate = useNavigation();
   const handleGoBack = () => {
     navigate.goBack();
   };

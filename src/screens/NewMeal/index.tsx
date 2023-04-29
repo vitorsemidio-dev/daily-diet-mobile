@@ -5,8 +5,9 @@ import { RadioButtonInput } from '@components/RadioButtonInput';
 import { Text, Title } from '@components/Typography';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { mealCreate } from '@storage/mealCreate';
-import { MealFetchResult, mealGet } from '@storage/mealGet';
+import { mealGet } from '@storage/mealGet';
 import { mealUpdate } from '@storage/mealUpdate';
+import { Meal } from '@storage/types';
 import { useEffect, useState } from 'react';
 import { useTheme } from 'styled-components';
 import {
@@ -16,7 +17,7 @@ import {
   InputWrapper,
 } from './styles';
 
-type Params = {
+export type NewMealRouteParams = {
   mealId?: number;
 };
 
@@ -32,7 +33,7 @@ export function NewMeal() {
   const [hour, setHour] = useState('');
   const [isDiet, setIsDiet] = useState<boolean | undefined>(undefined);
 
-  const params = route.params as Params;
+  const params = route.params as NewMealRouteParams;
 
   useEffect(() => {
     if (!params?.mealId) return;
@@ -41,16 +42,13 @@ export function NewMeal() {
     });
   }, []);
 
-  const fillMeal = (mealData: MealFetchResult) => {
+  const fillMeal = (mealData: Meal) => {
     setId(mealData.id);
     setName(mealData.name);
     setDescription(mealData.description);
     setDate(mealData.date);
     setHour(mealData.hour);
     setIsDiet(mealData.isDiet);
-    console.log({
-      mealData,
-    });
   };
 
   const navigateToFeedbackScreen = () => {

@@ -1,4 +1,12 @@
+import { Button } from '@components/Button';
+import { Circle } from '@components/Circle';
+import { HeaderScreen } from '@components/HeaderScreen';
 import { Text, Title } from '@components/Typography';
+import { Feather } from '@expo/vector-icons';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { mealGet } from '@storage/mealGet';
+import { useEffect, useState } from 'react';
+import { useTheme } from 'styled-components';
 import {
   Container,
   Content,
@@ -8,16 +16,8 @@ import {
   MealContainer,
   Tag,
 } from './styles';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import { HeaderScreen } from '@components/HeaderScreen';
-import { useEffect, useState } from 'react';
-import { mealGet } from '@storage/mealGet';
-import { Circle } from '@components/Circle';
-import { Button } from '@components/Button';
-import { useTheme } from 'styled-components';
-import { Feather } from '@expo/vector-icons';
 
-type Params = {
+export type DetailMealRouteParams = {
   mealId: number;
 };
 
@@ -53,7 +53,7 @@ export function DetailMeal() {
   const navigate = useNavigation();
   const route = useRoute();
   const [meal, setMeal] = useState<MealFetchResult>({} as MealFetchResult);
-  const { mealId } = route.params as Params;
+  const { mealId } = route.params as DetailMealRouteParams;
 
   useEffect(() => {
     mealGet(mealId).then((response) => {

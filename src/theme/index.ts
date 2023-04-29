@@ -1,4 +1,4 @@
-export default {
+const appTheme = {
   COLORS: {
     BASE_GRAY_100: '#1B1D1E',
     BASE_GRAY_200: '#333638',
@@ -29,3 +29,18 @@ export default {
     BODY_XS: 12,
   },
 } as const;
+
+export const colors = {
+  success: {
+    light: appTheme.COLORS.BRAND_GREEN_LIGHT,
+    mid: appTheme.COLORS.BRAND_GREEN_MID,
+    dark: appTheme.COLORS.BRAND_GREEN_DARK,
+  },
+  danger: {
+    light: appTheme.COLORS.BRAND_RED_LIGHT,
+    mid: appTheme.COLORS.BRAND_RED_MID,
+    dark: appTheme.COLORS.BRAND_RED_DARK,
+  },
+};
+
+export default appTheme;
