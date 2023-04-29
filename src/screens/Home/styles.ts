@@ -57,7 +57,9 @@ export const DayMealList = styled.View`
   gap: 8px;
 `;
 
-export const DayMealItem = styled.View`
+export const DayMealItem = styled(TouchableOpacity).attrs({
+  activeOpacity: 0.8,
+})`
   flex-direction: row;
   border-width: 1px;
   border-color: ${({ theme }) => theme.COLORS.BASE_GRAY_500};

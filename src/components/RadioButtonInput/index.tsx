@@ -10,13 +10,18 @@ interface Option {
 
 interface Props {
   label: string;
+  defaultValue?: boolean;
   onChange: (value: any) => void;
   options: Option[];
 }
 
-export function RadioButtonInput({ label, onChange, options }: Props) {
-  const [value, setValue] = useState(undefined);
-
+export function RadioButtonInput({
+  defaultValue = undefined,
+  label,
+  onChange,
+  options,
+}: Props) {
+  const [value, setValue] = useState(defaultValue);
   const handleChange = (option: Option) => {
     setValue(option.value);
     onChange(option.value);

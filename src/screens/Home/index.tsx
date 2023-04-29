@@ -88,6 +88,10 @@ export function Home() {
     navigate.navigate('newMeal');
   }
 
+  function handleNavigateToDetailMeal(mealId: number) {
+    navigate.navigate('detailMeal', { mealId });
+  }
+
   useLayoutEffect(() => {
     mealFetch().then((mealsResponse) => {
       setMeals(mealsResponse);
@@ -135,7 +139,10 @@ export function Home() {
                 <Title size="sm">{item.date}</Title>
                 <DayMealList>
                   {item.meals.map((meal) => (
-                    <DayMealItem key={meal.id}>
+                    <DayMealItem
+                      key={meal.id}
+                      onPress={() => handleNavigateToDetailMeal(meal.id)}
+                    >
                       <Title size="sm">{meal.time}</Title>
                       <Divider />
                       <Text style={{ flex: 1 }}>{meal.name}</Text>

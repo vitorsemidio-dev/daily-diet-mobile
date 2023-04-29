@@ -3,9 +3,11 @@ import { HeaderScreen } from '@components/HeaderScreen';
 import { Input } from '@components/Input';
 import { RadioButtonInput } from '@components/RadioButtonInput';
 import { Text, Title } from '@components/Typography';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { mealCreate } from '@storage/mealCreate';
-import { useState } from 'react';
+import { MealFetchResult, mealGet } from '@storage/mealGet';
+import { mealUpdate } from '@storage/mealUpdate';
+import { useEffect, useState } from 'react';
 import { useTheme } from 'styled-components';
 import {
   Container,
@@ -14,16 +16,42 @@ import {
   InputWrapper,
 } from './styles';
 
+type Params = {
+  mealId?: number;
+};
+
 export function NewMeal() {
+  const navigate = useNavigation();
+  const route = useRoute();
   const theme = useTheme();
 
+  const [id, setId] = useState<null | number>(null);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
   const [hour, setHour] = useState('');
-  const [isDiet, setIsDiet] = useState(false);
+  const [isDiet, setIsDiet] = useState<boolean | undefined>(undefined);
 
-  const navigate = useNavigation();
+  const params = route.params as Params;
+
+  useEffect(() => {
+    if (!params?.mealId) return;
+    mealGet(params?.mealId).then((response) => {
+      fillMeal(response);
+    });
+  }, []);
+
+  const fillMeal = (mealData: MealFetchResult) => {
+    setId(mealData.id);
+    setName(mealData.name);
+    setDescription(mealData.description);
+    setDate(mealData.date);
+    setHour(mealData.hour);
+    setIsDiet(mealData.isDiet);
+    console.log({
+      mealData,
+    });
+  };
 
   const navigateToFeedbackScreen = () => {
     navigate.navigate('feedbackMeal', {
@@ -31,14 +59,20 @@ export function NewMeal() {
     });
   };
 
-  const handleNewMeal = async () => {
-    await mealCreate({
+  const handleSaveMeal = async () => {
+    const meal = {
+      id,
       name,
       description,
       date,
       hour,
       isDiet,
-    });
+    };
+    if (id) {
+      await mealUpdate(meal);
+    } else {
+      await mealCreate(meal);
+    }
 
     navigateToFeedbackScreen();
   };
@@ -76,6 +110,7 @@ export function NewMeal() {
 
         <InputWrapper>
           <RadioButtonInput
+            defaultValue={isDiet}
             label="Está dentro da Dieta?"
             options={[
               { labelText: 'Sim', value: true },
@@ -85,14 +120,14 @@ export function NewMeal() {
           />
         </InputWrapper>
 
-        <Button onPress={handleNewMeal}>
+        <Button onPress={handleSaveMeal}>
           <Text
             style={{
               color: theme.COLORS.BASE_WHITE,
               fontFamily: theme.FONT_FAMILY.BOLD,
             }}
           >
-            Cadastrar Refeição
+            {id ? 'Salvar Alterações' : 'Cadastrar Refeição'}
           </Text>
         </Button>
       </FormContainer>
