@@ -26,12 +26,12 @@
 
 Nesse desafio, você vai desenvolver uma aplicação de cadastro de refeições, que contém as seguintes funcionalidades:
 
-- [ ] Adicionar uma nova refeição
-- [ ] Editar uma refeição
-- [ ] Remover uma refeição da listagem
+- [x] Adicionar uma nova refeição
+- [x] Editar uma refeição
+- [x] Remover uma refeição da listagem
 - [ ] Mostrar as estatísticas do progresso da dieta
-- [ ] Navegação entre telas em pilha
-- [ ] Armazenamento local das refeições
+- [x] Navegação entre telas em pilha
+- [x] Armazenamento local das refeições
 
 Apesar de serem poucas funcionalidades, você vai precisar relembrar conceitos como:
 
