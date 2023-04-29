@@ -1,6 +1,5 @@
 import { Circle } from '@components/Circle';
 import { Title } from '@components/Typography';
-import { useState } from 'react';
 import { Container, ContainerOptions, Radio } from './styles';
 
 interface Option {
@@ -10,20 +9,18 @@ interface Option {
 
 interface Props {
   label: string;
-  defaultValue?: boolean;
+  value?: boolean;
   onChange: (value: any) => void;
   options: Option[];
 }
 
 export function RadioButtonInput({
-  defaultValue = undefined,
+  value = undefined,
   label,
   onChange,
   options,
 }: Props) {
-  const [value, setValue] = useState(defaultValue);
   const handleChange = (option: Option) => {
-    setValue(option.value);
     onChange(option.value);
   };
 

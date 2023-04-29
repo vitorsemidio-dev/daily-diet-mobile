@@ -39,6 +39,7 @@ export function NewMeal() {
     if (!params?.mealId) return;
     mealGet(params?.mealId).then((response) => {
       fillMeal(response);
+      console.log('achou meal');
     });
   }, []);
 
@@ -108,12 +109,12 @@ export function NewMeal() {
 
         <InputWrapper>
           <RadioButtonInput
-            defaultValue={isDiet}
             label="Está dentro da Dieta?"
             options={[
               { labelText: 'Sim', value: true },
               { labelText: 'Não', value: false },
             ]}
+            value={isDiet}
             onChange={(value) => setIsDiet(value)}
           />
         </InputWrapper>
