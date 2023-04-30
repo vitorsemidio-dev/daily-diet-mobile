@@ -22,6 +22,17 @@ export function useMeals(meals: Meal[]) {
     const bestSequence = calculateBestSequence(meals);
     return bestSequence;
   };
+  const isMostlyDiet = () => {
+    return getMealDiet() > getMealNotDiet();
+  };
+  const metrics = {
+    total: getTotal(),
+    diet: getMealDiet(),
+    notDiet: getMealNotDiet(),
+    bestSequence: getMealBestSequence(),
+    metricsPercentFormatted: getMealPercentFormatted(),
+    isMostlyDiet: isMostlyDiet(),
+  };
 
   return {
     getTotal,
@@ -30,6 +41,8 @@ export function useMeals(meals: Meal[]) {
     getMealPercent,
     getMealPercentFormatted,
     getMealBestSequence,
+    isMostlyDiet,
+    metrics,
   };
 }
 

@@ -73,8 +73,7 @@ export function Home() {
 
   const [meals, setMeals] = useState<Meal[]>([]);
   const mealsGroupedByDate = groupByDate(meals);
-  const { getMealPercentFormatted } = useMeals(meals);
-  const metricsPercentFormatted = getMealPercentFormatted();
+  const { metrics } = useMeals(meals);
 
   function handleNavigateToMetrics() {
     navigate.navigate('metrics');
@@ -105,15 +104,22 @@ export function Home() {
         />
       </Header>
 
-      <Banner variant="success" style={{ marginTop: 32 }}>
+      <Banner
+        variant={metrics.isMostlyDiet ? 'success' : 'danger'}
+        style={{ marginTop: 32 }}
+      >
         <Feather
           name="arrow-up-right"
-          color={theme.COLORS.BRAND_GREEN_DARK}
+          color={
+            metrics.isMostlyDiet
+              ? theme.COLORS.BRAND_GREEN_DARK
+              : theme.COLORS.BRAND_RED_DARK
+          }
           size={24}
           style={{ position: 'absolute', top: 8, right: 8 }}
           onPress={handleNavigateToMetrics}
         />
-        <Title size="lg">{metricsPercentFormatted}</Title>
+        <Title size="lg">{metrics.metricsPercentFormatted}</Title>
         <Text>das refeições dentro da dieta</Text>
       </Banner>
 

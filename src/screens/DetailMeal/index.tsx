@@ -96,7 +96,10 @@ export function DetailMeal() {
 
   return (
     <Container>
-      <HeaderScreen title="Refeição" />
+      <HeaderScreen
+        type={meal.isDiet ? 'success' : 'danger'}
+        title="Refeição"
+      />
       <Content>
         <Info>
           <MealContainer>

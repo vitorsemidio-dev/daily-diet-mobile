@@ -18,20 +18,7 @@ export function Metrics() {
   const theme = useTheme();
   const navigate = useNavigation();
   const [meals, setMeals] = useState<Meal[]>([]);
-  const {
-    getMealBestSequence,
-    getMealDiet,
-    getMealNotDiet,
-    getMealPercentFormatted,
-    getTotal,
-  } = useMeals(meals);
-  const metrics = {
-    total: getTotal(),
-    diet: getMealDiet(),
-    notDiet: getMealNotDiet(),
-    bestSequence: getMealBestSequence(),
-    metricsPercentFormatted: getMealPercentFormatted(),
-  };
+  const { metrics } = useMeals(meals);
 
   useEffect(() => {
     mealFetch().then((response) => {
@@ -45,11 +32,18 @@ export function Metrics() {
 
   return (
     <Container>
-      <Banner variant="success" style={{ height: 200 }}>
+      <Banner
+        variant={metrics.isMostlyDiet ? 'success' : 'danger'}
+        style={{ height: 200 }}
+      >
         <Feather
           name="arrow-left"
           size={24}
-          color={theme.COLORS.BRAND_GREEN_DARK}
+          color={
+            metrics.isMostlyDiet
+              ? theme.COLORS.BRAND_GREEN_DARK
+              : theme.COLORS.BRAND_RED_DARK
+          }
           style={{ position: 'absolute', left: 24, top: '33%' }}
           onPress={goBack}
         />

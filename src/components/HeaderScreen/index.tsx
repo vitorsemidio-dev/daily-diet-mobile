@@ -6,9 +6,10 @@ import { useTheme } from 'styled-components';
 
 interface Props {
   title: string;
+  type?: 'success' | 'danger' | 'light';
 }
 
-export function HeaderScreen({ title }: Props) {
+export function HeaderScreen({ title, type }: Props) {
   const theme = useTheme();
   const navigate = useNavigation();
 
@@ -21,9 +22,9 @@ export function HeaderScreen({ title }: Props) {
 
   return (
     <Banner
+      variant={type}
       style={{
         height: bannerHeight,
-        backgroundColor: theme.COLORS.BASE_GRAY_500,
       }}
     >
       <Feather
