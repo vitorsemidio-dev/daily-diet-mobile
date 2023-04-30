@@ -1,5 +1,6 @@
 import { Meal } from '@storage/types';
 import { formatPercent } from '@utils/format-percent';
+import { dateAdapter } from '@utils/date-adapter';
 
 export function useMeals(meals: Meal[]) {
   const getTotal = () => {
@@ -18,7 +19,8 @@ export function useMeals(meals: Meal[]) {
     return formatPercent(getMealDiet() / getTotal() || 1);
   };
   const getMealBestSequence = () => {
-    return 0;
+    const bestSequence = calculateBestSequence(meals);
+    return bestSequence;
   };
 
   return {
@@ -29,4 +31,29 @@ export function useMeals(meals: Meal[]) {
     getMealPercentFormatted,
     getMealBestSequence,
   };
+}
+
+function calculateBestSequence(meals: Meal[]): number {
+  let bestSequence = 0;
+
+  const mealsSorted = meals
+    .map((meal) => ({
+      ...meal,
+      date: dateAdapter(meal.date, meal.hour),
+    }))
+    .sort((a, b) => a.date.getTime() - b.date.getTime());
+
+  mealsSorted.forEach((meal, index) => {
+    if (meal.isDiet) {
+      let currentSequence = 1;
+      let nextMeal = mealsSorted[index + 1];
+      while (nextMeal && nextMeal.isDiet) {
+        currentSequence += 1;
+        nextMeal = mealsSorted[index + currentSequence];
+      }
+      bestSequence = Math.max(bestSequence, currentSequence);
+    }
+  });
+
+  return bestSequence;
 }

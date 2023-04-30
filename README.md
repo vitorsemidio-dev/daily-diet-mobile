@@ -29,7 +29,7 @@ Nesse desafio, você vai desenvolver uma aplicação de cadastro de refeições,
 - [x] Adicionar uma nova refeição
 - [x] Editar uma refeição
 - [x] Remover uma refeição da listagem
-- [ ] Mostrar as estatísticas do progresso da dieta
+- [x] Mostrar as estatísticas do progresso da dieta
 - [x] Navegação entre telas em pilha
 - [x] Armazenamento local das refeições
 

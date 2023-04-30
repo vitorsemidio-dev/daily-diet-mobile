@@ -30,8 +30,8 @@ export function Metrics() {
     diet: getMealDiet(),
     notDiet: getMealNotDiet(),
     bestSequence: getMealBestSequence(),
+    metricsPercentFormatted: getMealPercentFormatted(),
   };
-  const metricPercents = getMealPercentFormatted();
 
   useEffect(() => {
     mealFetch().then((response) => {
@@ -53,7 +53,7 @@ export function Metrics() {
           style={{ position: 'absolute', left: 24, top: '33%' }}
           onPress={goBack}
         />
-        <Title size="lg">{metricPercents}</Title>
+        <Title size="lg">{metrics.metricsPercentFormatted}</Title>
         <Text>das refeições dentro da dieta</Text>
       </Banner>
 
@@ -64,7 +64,9 @@ export function Metrics() {
         <DataMetricsContainer>
           <Banner>
             <Title>{metrics.bestSequence}</Title>
-            <Text>melhor sequência de pratos dentro da dieta dieta</Text>
+            <Text align="center">
+              melhor sequência de pratos dentro da dieta dieta
+            </Text>
           </Banner>
           <Banner>
             <Title>{metrics.total}</Title>

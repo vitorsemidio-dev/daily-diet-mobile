@@ -4,6 +4,7 @@ import { Button } from '@components/Button';
 import { Circle } from '@components/Circle';
 import { Text, Title } from '@components/Typography';
 import { Feather } from '@expo/vector-icons';
+import { useMeals } from '@hooks/meals';
 import { useNavigation } from '@react-navigation/native';
 import { mealFetch } from '@storage/mealFetch';
 import { Meal } from '@storage/types';
@@ -72,6 +73,8 @@ export function Home() {
 
   const [meals, setMeals] = useState<Meal[]>([]);
   const mealsGroupedByDate = groupByDate(meals);
+  const { getMealPercentFormatted } = useMeals(meals);
+  const metricsPercentFormatted = getMealPercentFormatted();
 
   function handleNavigateToMetrics() {
     navigate.navigate('metrics');
@@ -110,7 +113,7 @@ export function Home() {
           style={{ position: 'absolute', top: 8, right: 8 }}
           onPress={handleNavigateToMetrics}
         />
-        <Title size="lg">90,86%</Title>
+        <Title size="lg">{metricsPercentFormatted}</Title>
         <Text>das refeições dentro da dieta</Text>
       </Banner>
 
