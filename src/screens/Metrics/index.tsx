@@ -33,11 +33,11 @@ export function Metrics() {
   };
   const metricPercents = getMealPercentFormatted();
 
-  useEffect(() => {}, [
+  useEffect(() => {
     mealFetch().then((response) => {
       setMeals(response);
-    }),
-  ]);
+    });
+  }, []);
 
   function goBack() {
     navigate.goBack();
